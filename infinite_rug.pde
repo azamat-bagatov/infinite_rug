@@ -4,18 +4,8 @@ int GRID_Y = (380 - OFFSET*2);
 
 ArrayList <thread> threads;
 
+float shift = 0;
 
-boolean isTaken( int x, int y) {
-  for(thread t : threads){
-        for(int i = 0; i < t.pivots.size(); i++)
-    {
-      
-        PVector p = t.pivots.get(i);
-        if(p.x == x && p.y == y) return true;
-  }
-  }
-  return false;
-}
 void setup()
 {
   size(380, 3840);
@@ -24,14 +14,26 @@ void setup()
   
 }
 
-
+int SPEED = -10;
 void draw()
 {
+  
   background(0);
-  for(thread t : threads){
-  t.draw();
+  
+  for(thread t : threads) {
+    t.draw();
+    t.shift(SPEED);
   }
+  shift += SPEED;
+  
+ if(shift < -GRID_Y) {
+    for(thread t : threads) t.update();
+    shift = 0;
+  }
+  
   draw_grid();
+  
+  
   
 }
 
@@ -50,7 +52,7 @@ void draw_grid(){
     stroke(50);
     strokeWeight(2);
     while( x < width || y < height){
-      line(0, y, width,y);
+      //line(0, y, width,y);
       line(x,0,x,height);
       y+=GRID_Y;
       x+=GRID_X;
