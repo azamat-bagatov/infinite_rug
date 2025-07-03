@@ -29,7 +29,7 @@ public class thread{
   
   void update(){
     pivots.remove(0);
-    add_point( (int) pivots.get( pivots.size()-1 ).y + GRID_Y );
+    add_point( (int) pivots.get( pivots.size()-1 ).y + GRID_Y - SPEED );
   }
   
   void shift(float s){
