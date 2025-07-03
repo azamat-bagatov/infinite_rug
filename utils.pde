@@ -1,4 +1,6 @@
-
+color random_from_palette() {
+  return palette[int(random(palette.length))];
+}
 int random_grid_x(){
   return OFFSET +  ( int(random(0,width-OFFSET-15))/GRID_X )*GRID_X ;
 }

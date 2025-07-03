@@ -1,7 +1,14 @@
+color palette[] = {
+  color(115,104,59),
+  color(88,62,35),
+  color(19,38,47),
+  color(176,160,132)
+  
+};
 public class thread{
   
   ArrayList<PVector> pivots;
-  color col = color(0,0,0); 
+  color col = color(240); //random_from_palette();
   thread(){
     pivots = new ArrayList<PVector>();
     
@@ -40,7 +47,7 @@ public class thread{
 
     strokeWeight(THREAD_WIDTH);
     noFill();
-    
+  
     stroke(20, 50);
     beginShape();   
     for(int i = 0; i < pivots.size(); i++)
@@ -51,7 +58,7 @@ public class thread{
     endShape();
     
     
-    stroke(240);
+    stroke(col);
     beginShape();   
     for(int i = 0; i < pivots.size(); i++)
     {
