@@ -41,13 +41,13 @@ public class thread{
   void draw(){
 
     
-    strokeWeight(40);
+    strokeWeight(THREAD_WIDTH);
     for(int i = 1; i < pivots.size(); i++)
     {
       
         PVector p = pivots.get(i);
         PVector pp = pivots.get(i-1);
-        stroke(20);
+        stroke(20, 50);
         int drift = 10;
         line( pp.x+drift,pp.y+drift, p.x+drift,p.y+drift); 
         stroke(240);

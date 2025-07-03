@@ -1,6 +1,10 @@
 int OFFSET = 40;
-int GRID_X = (380 - OFFSET*2)/3;
+int GRID_X = 40; //(380 - OFFSET*2)/3;
 int GRID_Y = (380 - OFFSET*2);
+int NUM_THREADS = 4;
+int THREAD_WIDTH = 40;
+int SPEED = -6;
+
 
 ArrayList <thread> threads;
 
@@ -10,11 +14,12 @@ void setup()
 {
   size(380, 3840);
   threads = new ArrayList<thread>();
-   for(int i = 0; i < 4; i++) threads.add( new thread());  
-  
+   for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
+  frameRate(120);
 }
 
-int SPEED = -10;
+
+
 void draw()
 {
   
@@ -31,7 +36,7 @@ void draw()
     shift = 0;
   }
   
-  draw_grid();
+  //draw_grid();
   
   
   
@@ -43,7 +48,7 @@ void keyPressed(){
 
 void refresh(){
   threads.clear();
-  for(int i = 0; i < 4; i++) threads.add( new thread());  
+  for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
 }
 
 void draw_grid(){
