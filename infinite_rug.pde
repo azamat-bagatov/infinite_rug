@@ -2,46 +2,20 @@ int OFFSET = 40;
 int GRID_X = (380 - OFFSET*2)/3;
 int GRID_Y = (380 - OFFSET*2);
 
-public class thread{
-  
-  ArrayList<PVector> pivots;
-  
-  thread(){
-    pivots = new ArrayList<PVector>();
-    float y = 0 ;
-    float x = random_grid_x();
-    while(y < height) {
-      float newx = x;
-      if( chance(20) ) newx = random_grid_x();
-      pivots.add (new PVector(newx, y) );
-      y+=GRID_Y;
-    }
-    pivots.add (new PVector(random_grid_x(), y) );
-  }
-  
-  void draw(){
-
-    
-    strokeWeight(40);
-    for(int i = 1; i < pivots.size(); i++)
-    {
-      
-        PVector p = pivots.get(i);
-        PVector pp = pivots.get(i-1);
-        stroke(20);
-        int drift = 10;
-        line( pp.x+drift,pp.y+drift, p.x+drift,p.y+drift); 
-        stroke(240);
-        line( pp.x,pp.y, p.x,p.y); 
-    
-  }
-
-  }
-}
-
-
 ArrayList <thread> threads;
 
+
+boolean isTaken( int x, int y) {
+  for(thread t : threads){
+        for(int i = 0; i < t.pivots.size(); i++)
+    {
+      
+        PVector p = t.pivots.get(i);
+        if(p.x == x && p.y == y) return true;
+  }
+  }
+  return false;
+}
 void setup()
 {
   size(380, 3840);
@@ -56,7 +30,6 @@ void draw()
   background(0);
   for(thread t : threads){
   t.draw();
-  t = new thread();
   }
   draw_grid();
   
