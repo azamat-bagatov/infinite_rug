@@ -1,10 +1,10 @@
 int OFFSET = 40;
-int GRID_X = 40; //(380 - OFFSET*2)/3;
+int GRID_X = (380 - OFFSET*2)/12;
 int GRID_Y = (380 - OFFSET*2);
-int NUM_THREADS = 4;
-int THREAD_WIDTH = 40;
-int SPEED = -6;
-
+int NUM_THREADS = 24;
+int THREAD_WIDTH = 6;
+int SPEED = -4;
+int SHADE = 2;
 
 ArrayList <thread> threads;
 
@@ -24,7 +24,7 @@ void draw()
 {
   
   background(0);
-  
+  draw_grid();
   for(thread t : threads) {
     t.draw();
     t.shift(SPEED);
@@ -35,8 +35,6 @@ void draw()
     for(thread t : threads) t.update();
     shift = 0;
   }
-  
-  //draw_grid();
   
   
   
@@ -56,7 +54,7 @@ void draw_grid(){
     int y = 0;
     stroke(50);
     strokeWeight(2);
-    while( x < width || y < height){
+    while( x < width-OFFSET || y < height){
       //line(0, y, width,y);
       line(x,0,x,height);
       y+=GRID_Y;

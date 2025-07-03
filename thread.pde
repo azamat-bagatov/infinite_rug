@@ -1,7 +1,7 @@
 public class thread{
   
   ArrayList<PVector> pivots;
-  
+  color col = color(0,0,0); 
   thread(){
     pivots = new ArrayList<PVector>();
     
@@ -9,22 +9,20 @@ public class thread{
     while(y < height+400) {
       add_point(y);
       y += GRID_Y;
-      
     }
- 
-    
   }
   
   void add_point(int y){
       int newx = random_grid_x();
       if(pivots.size() > 0) newx = (int) pivots.get(pivots.size()-1).x;
-      
-      if( chance(60) ) newx = random_grid_x();
+      if( chance(60) ) {
+        newx = random_grid_x();
       if( isTaken ( newx, y ) )  newx = random_grid_x();
       if( isTaken ( newx, y ) )  newx = random_grid_x();
       if( isTaken ( newx, y ) )  newx = random_grid_x();
+      }
       pivots.add (new PVector ( newx, y) );
-      println(newx + " | " + y);
+      
   }
   
   void update(){
@@ -40,20 +38,27 @@ public class thread{
   
   void draw(){
 
-    
     strokeWeight(THREAD_WIDTH);
-    for(int i = 1; i < pivots.size(); i++)
-    {
-      
-        PVector p = pivots.get(i);
-        PVector pp = pivots.get(i-1);
-        stroke(20, 50);
-        int drift = 10;
-        line( pp.x+drift,pp.y+drift, p.x+drift,p.y+drift); 
-        stroke(240);
-        line( pp.x ,pp.y, p.x,p.y); 
+    noFill();
     
-  }
-
+    stroke(20, 50);
+    beginShape();   
+    for(int i = 0; i < pivots.size(); i++)
+    {
+        PVector p = pivots.get(i);
+        vertex( p.x+SHADE, p.y+SHADE );  
+    }
+    endShape();
+    
+    
+    stroke(240);
+    beginShape();   
+    for(int i = 0; i < pivots.size(); i++)
+    {
+        PVector p = pivots.get(i);
+        vertex( p.x, p.y );  
+    }
+    endShape();
+    
   }
 }
