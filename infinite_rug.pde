@@ -2,17 +2,17 @@ int OFFSET = 40;
 int GRID_X = (380 - OFFSET*2)/6;
 int GRID_Y = (380 - OFFSET*2);
 int NUM_THREADS = 4;
-int THREAD_WIDTH = 42;
+int THREAD_WIDTH = 128;
 int SPEED = -4;
-int SHADE = 4;
-
+int SHADE = 24;
+// 1440 2560
 ArrayList <thread> threads;
 
 float shift = 0;
 
 void setup()
 {
-  size(380, 3840);
+  size(1440, 2760);
   threads = new ArrayList<thread>();
    for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
   frameRate(120);

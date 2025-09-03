@@ -53,7 +53,7 @@ public class thread{
     for(int i = 0; i < pivots.size(); i++)
     {
         PVector p = pivots.get(i);
-        vertex( p.x+SHADE, p.y+SHADE );  
+        vertex( p.x+SHADE, p.y );  
     }
     endShape();
     
