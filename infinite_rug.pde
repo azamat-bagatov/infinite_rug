@@ -1,8 +1,8 @@
 int OFFSET = 40;
 int GRID_X = (380 - OFFSET*2)/6;
 int GRID_Y = (380 - OFFSET*2);
-int NUM_THREADS = 8;
-int THREAD_WIDTH = 24;
+int NUM_THREADS = 4;
+int THREAD_WIDTH = 42;
 int SPEED = -4;
 int SHADE = 4;
 
