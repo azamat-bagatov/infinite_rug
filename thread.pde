@@ -22,22 +22,33 @@ public class thread{
 
     
     strokeWeight(40);
-    for(int i = 1; i < pivots.size(); i++)
+    
+    //beginShape();  
+    //stroke(0);
+    //for(int i = 0; i < pivots.size(); i++)
+    //{
+    //    PVector p = pivots.get(i);
+    //    vertex( p.x+SHADE, p.y );  
+    //}
+    //endShape();
+    
+    
+    stroke(255);
+    beginShape();
+    for(int i = 0; i < pivots.size(); i++)
     {
-      
         PVector p = pivots.get(i);
-        PVector pp = pivots.get(i-1);
-        
-        stroke(0);
-        line( pp.x+SHADE,pp.y, p.x+SHADE,p.y);
-        
-        stroke(255);
-        line( pp.x,pp.y, p.x,p.y);
+        vertex( p.x, p.y );  
+    }
+    endShape();
+ 
+      
         
         
+  
+          PVector p = pivots.get(pivots.size() - 1);
+          PVector pp = pivots.get(pivots.size() - 2);
         
-        if(i == pivots.size() - 1 ){
-          
           PVector dir = new PVector(p.x - pp.x, p.y - pp.y); 
           PVector zero = new PVector(0,-1);
           noStroke();
@@ -46,12 +57,6 @@ public class thread{
           fill(255);
           draw_arrow(p.x,p.y,PVector.angleBetween(dir,zero));
           
-          
-        }
-    
-  }
-  
-  
 
   }
 }
