@@ -48,7 +48,7 @@ public class thread{
     strokeWeight(THREAD_WIDTH);
     noFill();
   
-    stroke(20, 50);
+    stroke(0);
     beginShape();   
     for(int i = 0; i < pivots.size(); i++)
     {
