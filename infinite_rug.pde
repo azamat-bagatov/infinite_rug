@@ -1,18 +1,22 @@
 int OFFSET = 40;
-int GRID_X = (380 - OFFSET*2)/3;
+int GRID_X = (380 - OFFSET*2)/6;
 int GRID_Y = (380 - OFFSET*2);
-int SHADE = 8;
-float scale = 2;
 
+int NUM_THREADS = 4;
+int THREAD_WIDTH = 40;
+
+int SHADE = 8;
+float scale = 1;
+int DICE = 100;
 
 ArrayList <thread> threads;
 PShape arrow1, arrow2,arrow3,arrow4;
 PShape arrows[];
 void setup()
 {
-  size(380, 3840);
+  size(480, 3840);
   threads = new ArrayList<thread>();
-   for(int i = 0; i < 4; i++) threads.add( new thread());  
+   for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
    arrow1 = loadShape("arrow1.svg");
    arrow1.disableStyle();
   arrow2 = loadShape("arrow2.svg");
@@ -33,19 +37,20 @@ void draw()
   t.draw();
   t = new thread();
   }
-  //draw_grid();
-  
+  DICE = int( sin(frameCount/2)*100);
+  println(frameCount + "  " +DICE);
  
-  delay(300);
+  delay(150);
   threads.clear();
-  for(int i = 0; i < 4; i++) threads.add( new thread());  
+  for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
 }
 
 void draw_arrow(float x, float y, float angle){
   pushMatrix();
   translate(x,y);
   rotate(angle);
-  shape(random_arrow(), 0,0);
+  PShape arr = random_arrow();
+  shape(arr, 0,0,arr.width*scale, arr.height*scale );
   popMatrix();
 
 }

@@ -8,10 +8,10 @@ public class thread{
     float x = random_grid_x();
     while(y < height) {
       float newx = x;
-      if( chance(20) ) newx = random_grid_x();
+      if( chance(DICE) ) newx = random_grid_x();
       pivots.add (new PVector(newx, y) );
       y+=GRID_Y;
-      if( chance(20) ){
+      if( chance(5) ){
         break;
       }
     }
@@ -21,7 +21,7 @@ public class thread{
   void draw(){
 
     
-    strokeWeight(40);
+    strokeWeight(THREAD_WIDTH*scale);
     noFill();
     beginShape();  
     stroke(0);
