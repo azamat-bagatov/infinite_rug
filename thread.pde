@@ -22,18 +22,19 @@ public class thread{
 
     
     strokeWeight(40);
-    
-    //beginShape();  
-    //stroke(0);
-    //for(int i = 0; i < pivots.size(); i++)
-    //{
-    //    PVector p = pivots.get(i);
-    //    vertex( p.x+SHADE, p.y );  
-    //}
-    //endShape();
+    noFill();
+    beginShape();  
+    stroke(0);
+    for(int i = 0; i < pivots.size(); i++)
+    {
+        PVector p = pivots.get(i);
+        vertex( p.x+SHADE, p.y );  
+    }
+    endShape();
     
     
     stroke(255);
+    
     beginShape();
     for(int i = 0; i < pivots.size(); i++)
     {
