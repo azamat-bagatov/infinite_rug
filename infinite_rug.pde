@@ -53,9 +53,6 @@ void setup()
    setControl("OFFSET", 90, 0, 200);
    setControl("X_SCALE_FACTOR", 110, 1, 20);
    setControl("Y_SCALE_FACTOR", 111, 0, 20);
-   
-  
-   
    setControl("FRAMERATE", 116, 10, 500);
 }
 
@@ -67,7 +64,7 @@ void draw()
   t = new thread();
   }
   //DICE = int( sin(float(frameCount)/5.5)*100);
-  update_variables();
+  //update_variables();
  
   delay(FRAMERATE);
   threads.clear();
@@ -99,8 +96,6 @@ float getControl(String varName) {
 
 void controllerChange(int channel, int number, int value) {
   
-  println();
-  println("Controller Change:");
   println("--------");
   println("Channel:"+channel);
   println("Number:"+number);
@@ -109,6 +104,13 @@ void controllerChange(int channel, int number, int value) {
 for (MIDIControl ctrl : midiMap.values()) {
     if (ctrl.cc == number) {
       ctrl.update(value);
+      if( ctrl == midiMap.get("SHADE") ) SHADE = (int) ctrl.get();
+      if( ctrl == midiMap.get("DICE") ) DICE = (int) ctrl.get();
+      if( ctrl == midiMap.get("scale") ) scale = (int) ctrl.get();
+      if( ctrl == midiMap.get("OFFSET") ) OFFSET = (int) ctrl.get();
+      if( ctrl == midiMap.get("FRAMERATE") ) FRAMERATE = (int) ctrl.get();
+      if( ctrl == midiMap.get("X_SCALE_FACTOR") ) X_SCALE_FACTOR = ctrl.get();
+      if( ctrl == midiMap.get("Y_SCALE_FACTOR") ) Y_SCALE_FACTOR =  ctrl.get();
       break;
     }
   }
