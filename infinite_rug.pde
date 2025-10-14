@@ -1,11 +1,19 @@
+import themidibus.*; //Import the library
+
+MidiBus myBus; 
+
 int OFFSET = 40; //відступ від краю
 int GRID_X = (380 - OFFSET*2)/6;  //крок сітки по Х
 int GRID_Y = (380 - OFFSET*2);    //крок сітки по У
 
 int NUM_THREADS = 3;  // кількість ниток
-int SHADE = 20;       // величина тіні
+int SHADE = 20;       // величина тіні (в пікселях)
 float scale = 2.5;      // масштаб/товщина нитки
 
+String midiDevice = "Minilab3"; // індикатор міді-девайсу
+//String midiDevice = "Akai MPD32";
+
+HashMap<String, MIDIControl> midiMap;
 
 int THREAD_WIDTH = 40;
 int DICE = 100;
@@ -13,11 +21,14 @@ int DICE = 100;
 ArrayList <thread> threads;
 PShape arrow1, arrow2,arrow3,arrow4;
 PShape arrows[];
+
 void setup()
 {
   
   size(480, 3840);  // розміри рендера
-  
+  MidiBus.list(); 
+   //myBus = new MidiBus(this, -1, -1); 
+  //myBus = new MidiBus(this, "Minilab3", "Java Sound Synthesizer");
   
   threads = new ArrayList<thread>();
    for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
@@ -30,9 +41,36 @@ void setup()
    arrow4 = loadShape("arrow4.svg");
    arrow4.disableStyle();
    arrows = new PShape[] { arrow1, arrow2, arrow3, arrow4 };
-   println ( arrow1.width + " " + arrow1.height );
+   
+   midiMap = new HashMap<String, MIDIControl>();
+   
+   setControl("dice", 87, 0, 100);
 }
 
+void setControl(String varName, int cc, float min, float max) {
+  midiMap.put(varName, new MIDIControl(varName, cc, min, max));
+}
+
+float getControl(String varName) {
+  return midiMap.get(varName).get();
+}
+
+void controllerChange(int channel, int number, int value) {
+  
+  println();
+  println("Controller Change:");
+  println("--------");
+  println("Channel:"+channel);
+  println("Number:"+number);
+  println("Value:"+value);
+  
+for (MIDIControl ctrl : midiMap.values()) {
+    if (ctrl.cc == number) {
+      ctrl.update(value);
+      break;
+    }
+  }
+}
 
 void draw()
 {
@@ -41,8 +79,8 @@ void draw()
   t.draw();
   t = new thread();
   }
-  DICE = int( sin(float(frameCount)/5.5)*100);
-  println(frameCount + "  " +DICE);
+  //DICE = int( sin(float(frameCount)/5.5)*100);
+  
  
   delay(250);
   threads.clear();
