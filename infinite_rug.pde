@@ -3,8 +3,10 @@ import themidibus.*; //Import the library
 MidiBus myBus; 
 
 int OFFSET = 40; //відступ від краю
-int GRID_X = (380 - OFFSET*2)/6;  //крок сітки по Х
-int GRID_Y = (380 - OFFSET*2);    //крок сітки по У
+float X_SCALE_FACTOR = 6;
+float Y_SCALE_FACTOR = 1;
+int GRID_X = PApplet.parseInt(  PApplet.parseFloat(380 - OFFSET*2)/X_SCALE_FACTOR );  //крок сітки по Х
+int GRID_Y =PApplet.parseInt( PApplet.parseFloat(380 - OFFSET*2)/Y_SCALE_FACTOR );    //крок сітки по У
 
 int NUM_THREADS = 3;  // кількість ниток
 int SHADE = 20;       // величина тіні (в пікселях)
@@ -17,6 +19,7 @@ HashMap<String, MIDIControl> midiMap;
 
 int THREAD_WIDTH = 40;
 int DICE = 100;
+int FRAMERATE = 250; 
 
 ArrayList <thread> threads;
 PShape arrow1, arrow2,arrow3,arrow4;
@@ -24,11 +27,11 @@ PShape arrows[];
 
 void setup()
 {
-  
+  surface.setLocation(0,500);
   size(480, 3840);  // розміри рендера
   MidiBus.list(); 
    //myBus = new MidiBus(this, -1, -1); 
-  //myBus = new MidiBus(this, "Minilab3", "Java Sound Synthesizer");
+  myBus = new MidiBus(this, "Minilab3", "Java Sound Synthesizer");
   
   threads = new ArrayList<thread>();
    for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
@@ -44,7 +47,46 @@ void setup()
    
    midiMap = new HashMap<String, MIDIControl>();
    
-   setControl("dice", 87, 0, 100);
+   setControl("DICE", 86, 0, 100);
+   setControl("SHADE", 87, 1, 50);
+   setControl("scale", 89, 0, 10);
+   setControl("OFFSET", 90, 0, 200);
+   setControl("X_SCALE_FACTOR", 110, 1, 20);
+   setControl("Y_SCALE_FACTOR", 111, 0, 20);
+   
+  
+   
+   setControl("FRAMERATE", 116, 10, 500);
+}
+
+void draw()
+{
+  background(0);
+  for(thread t : threads){
+  t.draw();
+  t = new thread();
+  }
+  //DICE = int( sin(float(frameCount)/5.5)*100);
+  update_variables();
+ 
+  delay(FRAMERATE);
+  threads.clear();
+  for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
+}
+
+void update_variables(){
+  SHADE = (int) getControl("SHADE");
+  DICE = (int) getControl("DICE");
+  scale = (int) getControl("scale");
+  OFFSET = (int) getControl("OFFSET");
+  FRAMERATE = (int) getControl("FRAMERATE");
+  
+  X_SCALE_FACTOR =  getControl("X_SCALE_FACTOR");
+  GRID_X = max ( PApplet.parseInt(  PApplet.parseFloat(380 - OFFSET*2)/X_SCALE_FACTOR ), 1 ); 
+  
+  Y_SCALE_FACTOR =  getControl("Y_SCALE_FACTOR");
+  GRID_Y = max ( PApplet.parseInt( PApplet.parseFloat(380 - OFFSET*2)/Y_SCALE_FACTOR ), 1 ); 
+  
 }
 
 void setControl(String varName, int cc, float min, float max) {
@@ -72,20 +114,7 @@ for (MIDIControl ctrl : midiMap.values()) {
   }
 }
 
-void draw()
-{
-  background(0);
-  for(thread t : threads){
-  t.draw();
-  t = new thread();
-  }
-  //DICE = int( sin(float(frameCount)/5.5)*100);
-  
- 
-  delay(250);
-  threads.clear();
-  for(int i = 0; i < NUM_THREADS; i++) threads.add( new thread());  
-}
+
 
 void draw_arrow(float x, float y, float angle){
   pushMatrix();
