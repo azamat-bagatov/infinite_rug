@@ -22,6 +22,7 @@ String midiDevice = "Minilab3"; // індикатор міді-девайсу
 
 //////////////////////// MIDI ASSIGNMENT ///////////////////////////////////////
 void setup_controlls(){
+  
   setControl("DICE", 86, 0, 100);
   setControl("SHADE", 87, 1, 50);
   setControl("scale", 89, 0, 10);
@@ -31,6 +32,7 @@ void setup_controlls(){
   setControl("FRAMERATE", 116, 10, 500);
   setControl("STOP_FACTOR", 117, 0, 100);
   setControl("NUM_THREADS", 14, 0, 40);
+  
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -41,6 +43,7 @@ PShape arrows[];
 
 void setup()
 {
+  
   surface.setLocation(0, 0);  // ду запускати рендер Х,У
   size(480, 3840);  // розміри рендера
   
@@ -59,6 +62,7 @@ void setup()
   arrow4 = loadShape("arrow4.svg");
   arrow4.disableStyle();
   arrows = new PShape[] { arrow1, arrow2, arrow3, arrow4 };
+ 
 }
 
 void draw()
