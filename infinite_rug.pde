@@ -3,7 +3,7 @@ MidiBus myBus;
 int THREAD_WIDTH = 40; 
 
 //////////////////////////////// DEFAULT VALUES //////////////////////////////////
-int OFFSET = 40; //відступ від краю
+int OFFSET = 40; //відступ 
 float X_SCALE_FACTOR = 6;
 float Y_SCALE_FACTOR = 1;
 int GRID_X = int(  float(380 - OFFSET*2)/X_SCALE_FACTOR );  //крок сітки по Х
@@ -19,6 +19,7 @@ int FRAMERATE = 250;   // пауза на один фрейм
 String midiDevice = "Minilab3"; // індикатор міді-девайсу
 //String midiDevice = "Akai MPD32";
 ////////////////////////////////////////////////////////////////////////////////
+
 //////////////////////// MIDI ASSIGNMENT ///////////////////////////////////////
 void setup_controlls(){
   setControl("DICE", 86, 0, 100);
