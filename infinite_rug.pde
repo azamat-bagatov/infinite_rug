@@ -48,7 +48,7 @@ void setup()
   size(480, 3840);  // розміри рендера
   
   MidiBus.list();
-  myBus = new MidiBus(this, "Minilab3", "Java Sound Synthesizer");
+  myBus = new MidiBus(this, midiDevice, "Java Sound Synthesizer");
   midiMap = new HashMap<String, MIDIControl>();
   setup_controlls();
   threads = new ArrayList<thread>();
