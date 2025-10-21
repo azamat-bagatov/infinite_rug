@@ -11,7 +11,7 @@ public class thread{
       if( chance(DICE) ) newx = random_grid_x();
       pivots.add (new PVector(newx, y) );
       y+=GRID_Y;
-      if( chance(5) ){
+      if( chance(STOP_FACTOR) ){
         break;
       }
     }
